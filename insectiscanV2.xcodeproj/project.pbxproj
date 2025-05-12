@@ -1,0 +1,647 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D1A5B0EB2DCDC6D4008E1C6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B0EA2DCDC6D4008E1C6C /* FirebaseAuth */; };
+		D1A5B0ED2DCDC6D4008E1C6C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B0EC2DCDC6D4008E1C6C /* FirebaseFirestore */; };
+		D1A5B0EF2DCDC6D4008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B0EE2DCDC6D4008E1C6C /* FirebaseFirestoreCombine-Community */; };
+		D1A5B10F2DD175E0008E1C6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B10E2DD175E0008E1C6C /* FirebaseAuth */; };
+		D1A5B1112DD175E0008E1C6C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B1102DD175E0008E1C6C /* FirebaseFirestore */; };
+		D1A5B1132DD175E0008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B1122DD175E0008E1C6C /* FirebaseFirestoreCombine-Community */; };
+		D1A5B1152DD17A4F008E1C6C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B1142DD17A4F008E1C6C /* FirebaseAuth */; };
+		D1A5B1172DD17A4F008E1C6C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B1162DD17A4F008E1C6C /* FirebaseFirestore */; };
+		D1A5B1192DD17A4F008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D1A5B1182DD17A4F008E1C6C /* FirebaseFirestoreCombine-Community */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D17248172DC2D95F0096AE1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D17247F82DC2D95A0096AE1B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D17247FF2DC2D95A0096AE1B;
+			remoteInfo = insectiscanV2;
+		};
+		D17248212DC2D95F0096AE1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D17247F82DC2D95A0096AE1B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D17247FF2DC2D95A0096AE1B;
+			remoteInfo = insectiscanV2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D17248002DC2D95A0096AE1B /* insectiscanV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = insectiscanV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D17248162DC2D95F0096AE1B /* insectiscanV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = insectiscanV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D17248202DC2D95F0096AE1B /* insectiscanV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = insectiscanV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D17247FF2DC2D95A0096AE1B /* insectiscanV2 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D17248022DC2D95A0096AE1B /* insectiscanV2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */,
+			);
+			path = insectiscanV2;
+			sourceTree = "<group>";
+		};
+		D17248192DC2D95F0096AE1B /* insectiscanV2Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = insectiscanV2Tests;
+			sourceTree = "<group>";
+		};
+		D17248232DC2D95F0096AE1B /* insectiscanV2UITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = insectiscanV2UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D17247FD2DC2D95A0096AE1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1A5B0EF2DCDC6D4008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */,
+				D1A5B0EB2DCDC6D4008E1C6C /* FirebaseAuth in Frameworks */,
+				D1A5B0ED2DCDC6D4008E1C6C /* FirebaseFirestore in Frameworks */,
+				D1A5B1192DD17A4F008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */,
+				D1A5B1132DD175E0008E1C6C /* FirebaseFirestoreCombine-Community in Frameworks */,
+				D1A5B1112DD175E0008E1C6C /* FirebaseFirestore in Frameworks */,
+				D1A5B1172DD17A4F008E1C6C /* FirebaseFirestore in Frameworks */,
+				D1A5B1152DD17A4F008E1C6C /* FirebaseAuth in Frameworks */,
+				D1A5B10F2DD175E0008E1C6C /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D17248132DC2D95F0096AE1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D172481D2DC2D95F0096AE1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D17247F72DC2D9590096AE1B = {
+			isa = PBXGroup;
+			children = (
+				D17248022DC2D95A0096AE1B /* insectiscanV2 */,
+				D17248192DC2D95F0096AE1B /* insectiscanV2Tests */,
+				D17248232DC2D95F0096AE1B /* insectiscanV2UITests */,
+				D17248012DC2D95A0096AE1B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D17248012DC2D95A0096AE1B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D17248002DC2D95A0096AE1B /* insectiscanV2.app */,
+				D17248162DC2D95F0096AE1B /* insectiscanV2Tests.xctest */,
+				D17248202DC2D95F0096AE1B /* insectiscanV2UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D17247FF2DC2D95A0096AE1B /* insectiscanV2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D17248292DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2" */;
+			buildPhases = (
+				D17247FC2DC2D95A0096AE1B /* Sources */,
+				D17247FD2DC2D95A0096AE1B /* Frameworks */,
+				D17247FE2DC2D95A0096AE1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D17248022DC2D95A0096AE1B /* insectiscanV2 */,
+			);
+			name = insectiscanV2;
+			productName = insectiscanV2;
+			productReference = D17248002DC2D95A0096AE1B /* insectiscanV2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D17248152DC2D95F0096AE1B /* insectiscanV2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D172482E2DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2Tests" */;
+			buildPhases = (
+				D17248122DC2D95F0096AE1B /* Sources */,
+				D17248132DC2D95F0096AE1B /* Frameworks */,
+				D17248142DC2D95F0096AE1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D17248182DC2D95F0096AE1B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D17248192DC2D95F0096AE1B /* insectiscanV2Tests */,
+			);
+			name = insectiscanV2Tests;
+			productName = insectiscanV2Tests;
+			productReference = D17248162DC2D95F0096AE1B /* insectiscanV2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D172481F2DC2D95F0096AE1B /* insectiscanV2UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D17248312DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2UITests" */;
+			buildPhases = (
+				D172481C2DC2D95F0096AE1B /* Sources */,
+				D172481D2DC2D95F0096AE1B /* Frameworks */,
+				D172481E2DC2D95F0096AE1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D17248222DC2D95F0096AE1B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D17248232DC2D95F0096AE1B /* insectiscanV2UITests */,
+			);
+			name = insectiscanV2UITests;
+			productName = insectiscanV2UITests;
+			productReference = D17248202DC2D95F0096AE1B /* insectiscanV2UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D17247F82DC2D95A0096AE1B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					D17247FF2DC2D95A0096AE1B = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					D17248152DC2D95F0096AE1B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = D17247FF2DC2D95A0096AE1B;
+					};
+					D172481F2DC2D95F0096AE1B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = D17247FF2DC2D95A0096AE1B;
+					};
+				};
+			};
+			buildConfigurationList = D17247FB2DC2D95A0096AE1B /* Build configuration list for PBXProject "insectiscanV2" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D17247F72DC2D9590096AE1B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D17248012DC2D95A0096AE1B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D17247FF2DC2D95A0096AE1B /* insectiscanV2 */,
+				D17248152DC2D95F0096AE1B /* insectiscanV2Tests */,
+				D172481F2DC2D95F0096AE1B /* insectiscanV2UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D17247FE2DC2D95A0096AE1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D17248142DC2D95F0096AE1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D172481E2DC2D95F0096AE1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D17247FC2DC2D95A0096AE1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D17248122DC2D95F0096AE1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D172481C2DC2D95F0096AE1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D17248182DC2D95F0096AE1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D17247FF2DC2D95A0096AE1B /* insectiscanV2 */;
+			targetProxy = D17248172DC2D95F0096AE1B /* PBXContainerItemProxy */;
+		};
+		D17248222DC2D95F0096AE1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D17247FF2DC2D95A0096AE1B /* insectiscanV2 */;
+			targetProxy = D17248212DC2D95F0096AE1B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D172482A2DC2D95F0096AE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9G5D7WS656;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = insectiscanV2/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D172482B2DC2D95F0096AE1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9G5D7WS656;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = insectiscanV2/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D172482C2DC2D95F0096AE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D172482D2DC2D95F0096AE1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D172482F2DC2D95F0096AE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/insectiscanV2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/insectiscanV2";
+			};
+			name = Debug;
+		};
+		D17248302DC2D95F0096AE1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/insectiscanV2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/insectiscanV2";
+			};
+			name = Release;
+		};
+		D17248322DC2D95F0096AE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = insectiscanV2;
+			};
+			name = Debug;
+		};
+		D17248332DC2D95F0096AE1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = insectiscanV2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D17247FB2DC2D95A0096AE1B /* Build configuration list for PBXProject "insectiscanV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D172482C2DC2D95F0096AE1B /* Debug */,
+				D172482D2DC2D95F0096AE1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D17248292DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D172482A2DC2D95F0096AE1B /* Debug */,
+				D172482B2DC2D95F0096AE1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D172482E2DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D172482F2DC2D95F0096AE1B /* Debug */,
+				D17248302DC2D95F0096AE1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D17248312DC2D95F0096AE1B /* Build configuration list for PBXNativeTarget "insectiscanV2UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D17248322DC2D95F0096AE1B /* Debug */,
+				D17248332DC2D95F0096AE1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D1A5B0EA2DCDC6D4008E1C6C /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D1A5B0EC2DCDC6D4008E1C6C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		D1A5B0EE2DCDC6D4008E1C6C /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		D1A5B10E2DD175E0008E1C6C /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D1A5B1102DD175E0008E1C6C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		D1A5B1122DD175E0008E1C6C /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		D1A5B1142DD17A4F008E1C6C /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D1A5B1162DD17A4F008E1C6C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		D1A5B1182DD17A4F008E1C6C /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A5B0E92DCDC6D4008E1C6C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D17247F82DC2D95A0096AE1B /* Project object */;
+}
