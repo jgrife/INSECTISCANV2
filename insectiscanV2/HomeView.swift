@@ -78,7 +78,7 @@ struct HomeView: View {
                     }
                 }
 
-                // Tip
+                // Tip of the Day
                 VStack(alignment: .leading, spacing: 8) {
                     Text("🧠 Daily Tip")
                         .font(.headline)
@@ -96,13 +96,15 @@ struct HomeView: View {
         .sheet(isPresented: $showEmergencyHelp) {
             EmergencyHelpView()
         }
+        .onAppear {
+            fetchWeatherIfPossible()
+        }
         .onChange(of: locationManager.locality) {
             fetchWeatherIfPossible()
         }
         .onChange(of: locationManager.locationDenied) {
             showLocationAlert = locationManager.locationDenied
         }
-
         .alert("Location Access Denied", isPresented: $showLocationAlert) {
             Button("OK", role: .cancel) {}
         } message: {
