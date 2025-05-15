@@ -41,9 +41,22 @@
 		D17248202DC2D95F0096AE1B /* insectiscanV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = insectiscanV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D17247FF2DC2D95A0096AE1B /* insectiscanV2 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D17248022DC2D95A0096AE1B /* insectiscanV2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */,
+			);
 			path = insectiscanV2;
 			sourceTree = "<group>";
 		};
