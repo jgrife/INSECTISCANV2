@@ -13,6 +13,9 @@ struct ProfileView: View {
     @State private var medicalConditions = ""
     @State private var country = ""
 
+    @State private var showDeleteAlert = false
+    @State private var deleteErrorMessage: String?
+
     let genderOptions = ["Male", "Female", "Non-Binary", "Prefer not to say"]
     let skinColorOptions = ["Fair", "Light", "Medium", "Tan", "Dark", "Deep"]
 
@@ -23,7 +26,7 @@ struct ProfileView: View {
                     Section(header: Text("Edit Info")) {
                         TextField("Name", text: $name)
                         TextField("Email", text: $email)
-                        TextField("Age", text: $age)
+                        TextField("Age (optional)", text: $age)
                             .keyboardType(.numberPad)
 
                         Picker("Gender", selection: $gender) {
@@ -96,9 +99,25 @@ struct ProfileView: View {
                         authViewModel.logout()
                     }
                     .foregroundColor(.red)
+
+                    Button(role: .destructive) {
+                        showDeleteAlert = true
+                    } label: {
+                        Text("Delete Account")
+                    }
                 }
             }
             .navigationTitle("My Profile")
+            .alert(isPresented: $showDeleteAlert) {
+                Alert(
+                    title: Text("Delete Account"),
+                    message: Text("Are you sure you want to permanently delete your account? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        deleteAccount()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
         }
     }
 
@@ -106,7 +125,7 @@ struct ProfileView: View {
         guard var user = authViewModel.currentUser else { return }
         user.name = name
         user.email = email
-        user.age = Int(age)
+        user.age = Int(age)  // Optional handling
         user.gender = gender
         user.skinColor = skinColor
         user.allergies = allergies.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
@@ -114,5 +133,18 @@ struct ProfileView: View {
         user.country = country
 
         authViewModel.updateUserProfile(user)
+    }
+
+    private func deleteAccount() {
+        authViewModel.deleteAccount { result in
+            switch result {
+            case .success:
+                print("✅ Account deleted")
+                // Optional: navigate to login screen or exit app
+            case .failure(let error):
+                print("❌ Failed to delete account: \(error.localizedDescription)")
+                deleteErrorMessage = error.localizedDescription
+            }
+        }
     }
 }

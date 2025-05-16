@@ -25,6 +25,8 @@ final class AuthViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Login
+
     func login(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
@@ -34,8 +36,7 @@ final class AuthViewModel: ObservableObject {
             }
 
             guard let uid = result?.user.uid else {
-                print("❌ Login failed: no UID returned")
-                completion(.failure(NSError(domain: "LoginError", code: -1)))
+                completion(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "UID not found"])))
                 return
             }
 
@@ -45,16 +46,18 @@ final class AuthViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Signup
+
     func signup(
         name: String,
         email: String,
         password: String,
-        age: Int,
-        gender: String,
-        skinColor: String,
-        allergies: [String],
-        medicalConditions: [String], // ✅ Now included
-        country: String,
+        age: Int?,
+        gender: String?,
+        skinColor: String?,
+        allergies: [String]?,
+        medicalConditions: [String]?,
+        country: String?,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         auth.createUser(withEmail: email, password: password) { [weak self] result, error in
@@ -65,8 +68,7 @@ final class AuthViewModel: ObservableObject {
             }
 
             guard let uid = result?.user.uid else {
-                print("❌ Signup failed: no UID returned")
-                completion(.failure(NSError(domain: "SignupError", code: -1)))
+                completion(.failure(NSError(domain: "SignupError", code: -1, userInfo: [NSLocalizedDescriptionKey: "UID not found"])))
                 return
             }
 
@@ -78,7 +80,7 @@ final class AuthViewModel: ObservableObject {
                 gender: gender,
                 skinColor: skinColor,
                 allergies: allergies,
-                medicalConditions: medicalConditions, // ✅ Now passed in
+                medicalConditions: medicalConditions,
                 country: country
             )
 
@@ -91,13 +93,15 @@ final class AuthViewModel: ObservableObject {
                         self?.isAuthenticated = true
                     }
                     completion(.success(()))
-                case .failure(let saveError):
-                    print("❌ Firestore save failed:", saveError.localizedDescription)
-                    completion(.failure(saveError))
+                case .failure(let error):
+                    print("❌ Firestore save failed:", error.localizedDescription)
+                    completion(.failure(error))
                 }
             }
         }
     }
+
+    // MARK: - Save to Firestore
 
     private func saveUserToFirestore(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
@@ -112,6 +116,8 @@ final class AuthViewModel: ObservableObject {
             completion(.failure(error))
         }
     }
+
+    // MARK: - Fetch User
 
     private func fetchUser(uid: String) {
         db.collection("users").document(uid).getDocument { [weak self] snapshot, error in
@@ -132,6 +138,8 @@ final class AuthViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Update User
+
     func updateUserProfile(_ updatedUser: User) {
         do {
             try db.collection("users").document(updatedUser.id).setData(from: updatedUser) { [weak self] error in
@@ -148,6 +156,39 @@ final class AuthViewModel: ObservableObject {
             print("❌ Error encoding user data: \(error.localizedDescription)")
         }
     }
+
+    // MARK: - Delete Account
+
+    func deleteAccount(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = auth.currentUser else {
+            completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "No user signed in."])))
+            return
+        }
+
+        let uid = user.uid
+
+        db.collection("users").document(uid).delete { [weak self] error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            user.delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    DispatchQueue.main.async {
+                        self?.currentUser = nil
+                        self?.isAuthenticated = false
+                        print("✅ Account deleted from Firebase Auth and Firestore")
+                    }
+                    completion(.success(()))
+                }
+            }
+        }
+    }
+
+    // MARK: - Logout
 
     func logout() {
         do {

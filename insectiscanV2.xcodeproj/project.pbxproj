@@ -307,11 +307,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G5D7WS656;
+				DEVELOPMENT_TEAM = 8V7FW7X2W5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = insectiscanV2/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to analyze bug bites and identify plants or animals.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "InsectiScan needs access to your location for accurate weather and outdoor safety alerts.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "InsectiScan uses your location to show local weather and assess outdoor safety risks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -320,7 +324,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jgrife.insectiscan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -337,11 +341,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G5D7WS656;
+				DEVELOPMENT_TEAM = 8V7FW7X2W5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = insectiscanV2/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to analyze bug bites and identify plants or animals.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "InsectiScan needs access to your location for accurate weather and outdoor safety alerts.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "InsectiScan uses your location to show local weather and assess outdoor safety risks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -350,7 +358,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.insectiscan.insectiscanV2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jgrife.insectiscan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

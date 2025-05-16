@@ -11,3 +11,4 @@ struct User: Identifiable, Codable {
     var medicalConditions: [String]?
     var country: String?
 }
+    

@@ -14,18 +14,21 @@ struct SignUpView: View {
     @State private var country = ""
     @State private var errorMessage = ""
 
-    let genders = ["Male", "Female", "Non-binary", "Prefer not to say"]
-    let skinColors = ["Fair", "Light", "Medium", "Olive", "Brown", "Dark"]
+    let genders = ["", "Male", "Female", "Non-binary", "Prefer not to say"]
+    let skinColors = ["", "Fair", "Light", "Medium", "Olive", "Brown", "Dark"]
 
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Personal Information")) {
+                Section(header: Text("Required")) {
                     TextField("Name", text: $name)
                     TextField("Email", text: $email)
                         .keyboardType(.emailAddress)
                     SecureField("Password", text: $password)
-                    TextField("Age", text: $age)
+                }
+
+                Section(header: Text("Optional")) {
+                    TextField("Age (optional)", text: $age)
                         .keyboardType(.numberPad)
 
                     Picker("Gender", selection: $gender) {
@@ -47,11 +50,12 @@ struct SignUpView: View {
 
                 Section {
                     Button(action: {
-                        guard let ageInt = Int(age) else {
-                            errorMessage = "Please enter a valid age."
+                        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
+                            errorMessage = "Please fill in name, email, and password."
                             return
                         }
 
+                        let ageInt = Int(age)  // If empty or invalid, becomes nil
                         let allergyList = allergies.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
                         let conditionList = medicalConditions.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
 
@@ -60,11 +64,11 @@ struct SignUpView: View {
                             email: email,
                             password: password,
                             age: ageInt,
-                            gender: gender,
-                            skinColor: skinColor,
-                            allergies: allergyList,
-                            medicalConditions: conditionList,
-                            country: country
+                            gender: gender.isEmpty ? nil : gender,
+                            skinColor: skinColor.isEmpty ? nil : skinColor,
+                            allergies: allergyList.isEmpty ? nil : allergyList,
+                            medicalConditions: conditionList.isEmpty ? nil : conditionList,
+                            country: country.isEmpty ? nil : country
                         ) { result in
                             switch result {
                             case .success:
