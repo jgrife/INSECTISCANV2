@@ -1,16 +1,31 @@
+// ScanView.swift (Complete with Location Tagging)
+
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
+
+struct Product: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let url: URL?
+}
 
 struct ScanView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var locationManager: LocationManager
 
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     @State private var symptomText: String = ""
     @State private var isAnalyzing = false
     @State private var resultText: String? = nil
-    @State private var showCamera = false
+    @State private var parsedSections: [String: String] = [:]
+    @State private var products: [Product] = []
     @State private var dangerLevel: Int? = nil
+    @State private var showCamera = false
 
     var body: some View {
         ScrollView {
@@ -19,62 +34,8 @@ struct ScanView: View {
                     .font(.largeTitle.bold())
                     .padding(.top)
 
-                if let image = selectedImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .cornerRadius(12)
-                } else {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(height: 200)
-                        .overlay(
-                            VStack(spacing: 8) {
-                                Image(systemName: "photo")
-                                    .font(.largeTitle)
-                                    .foregroundColor(Color("PrimaryColor"))
-                                Text("Select or take a photo")
-                                    .foregroundColor(.gray)
-                            }
-                        )
-                }
-
-                HStack(spacing: 12) {
-                    Button {
-                        showCamera = true
-                    } label: {
-                        Label("Take Photo", systemImage: "camera")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
-                    }
-
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()
-                    ) {
-                        Label("Choose Photo", systemImage: "photo.on.rectangle")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color("AccentColor"))
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
-                    }
-                    .onChange(of: selectedItem) { oldValue, newValue in
-                        if let newItem = newValue {
-                            Task {
-                                if let data = try? await newItem.loadTransferable(type: Data.self),
-                                   let uiImage = UIImage(data: data) {
-                                    selectedImage = uiImage
-                                }
-                            }
-                        }
-                    }
-                }
+                imageSection
+                photoControls
 
                 VStack(alignment: .leading) {
                     Text("Describe your symptoms")
@@ -86,53 +47,10 @@ struct ScanView: View {
                         .cornerRadius(8)
                 }
 
-                Button(action: analyzeContent) {
-                    HStack {
-                        if isAnalyzing {
-                            ProgressView()
-                        } else {
-                            Label("Analyze Bite", systemImage: "waveform.path.ecg")
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color("PrimaryColor"))
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
-                }
-                .disabled(isAnalyzing || (selectedImage == nil && symptomText.isEmpty))
+                analyzeButton
 
                 if let result = resultText {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Result")
-                            .font(.headline)
-
-                        let parsed = parseSections(from: result)
-
-                        if let levelStr = parsed["Danger Level (1-10)"], let level = Int(levelStr) {
-                            DangerSliderView(dangerLevel: level)
-                        }
-
-                        if parsed.isEmpty {
-                            Text(result).font(.body)
-                        } else {
-                            ForEach(parsed.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
-                                Label {
-                                    Text(value)
-                                } icon: {
-                                    Image(systemName: iconName(for: key))
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                        }
-
-                        Text("🧠 This result is AI-generated and not a substitute for professional medical advice.")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
+                    resultView
                 }
 
                 Spacer(minLength: 60)
@@ -143,61 +61,280 @@ struct ScanView: View {
             CameraView(image: $selectedImage)
         }
         .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            UIApplication.shared.endEditing()
         }
     }
 
-    private func analyzeContent() {
-        guard !symptomText.isEmpty || selectedImage != nil else { return }
-        isAnalyzing = true
-        resultText = nil
-        dangerLevel = nil
-
-        guard let user = authViewModel.currentUser else {
-            resultText = "Error: User profile not loaded."
-            isAnalyzing = false
-            return
-        }
-
-        if let image = selectedImage,
-           let imageData = image.jpegData(compressionQuality: 0.8) {
-            let base64Image = imageData.base64EncodedString()
-            ChatGPTService.shared.sendImagePromptWithProfile(
-                base64Image: base64Image,
-                symptomText: symptomText,
-                user: user
-            ) { result in
-                DispatchQueue.main.async {
-                    isAnalyzing = false
-                    switch result {
-                    case .success(let response):
-                        resultText = response
-                        let parsed = parseSections(from: response)
-                        if let levelStr = parsed["Danger Level (1-10)"], let level = Int(levelStr) {
-                            dangerLevel = level
+    private var imageSection: some View {
+        Group {
+            if let image = selectedImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)
+                    .cornerRadius(12)
+            } else {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.gray.opacity(0.1))
+                    .frame(height: 200)
+                    .overlay(
+                        VStack(spacing: 8) {
+                            Image(systemName: "photo")
+                                .font(.largeTitle)
+                                .foregroundColor(Color("PrimaryColor"))
+                            Text("Select or take a photo")
+                                .foregroundColor(.gray)
                         }
-                    case .failure(let error):
-                        resultText = "Error: \(error.localizedDescription)"
+                    )
+            }
+        }
+    }
+
+    private var photoControls: some View {
+        HStack(spacing: 12) {
+            Button {
+                showCamera = true
+            } label: {
+                Label("Take Photo", systemImage: "camera")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+            }
+
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images,
+                photoLibrary: .shared()
+            ) {
+                Label("Choose Photo", systemImage: "photo.on.rectangle")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color("AccentColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+            }
+            .onChange(of: selectedItem) { _, newItem in
+                if let newItem {
+                    Task {
+                        if let data = try? await newItem.loadTransferable(type: Data.self),
+                           let uiImage = UIImage(data: data) {
+                            selectedImage = uiImage
+                        }
                     }
                 }
             }
-        } else {
-            resultText = "Please provide an image to analyze the bite."
-            isAnalyzing = false
+        }
+    }
+
+    private var analyzeButton: some View {
+        Button(action: analyzeContent) {
+            HStack {
+                if isAnalyzing {
+                    ProgressView()
+                } else {
+                    Label("Analyze Bite", systemImage: "waveform.path.ecg")
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color("PrimaryColor"))
+            .foregroundColor(.white)
+            .cornerRadius(12)
+        }
+        .disabled(isAnalyzing || (selectedImage == nil && symptomText.isEmpty))
+    }
+
+    private var resultView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Result")
+                .font(.headline)
+
+            if let level = dangerLevel {
+                DangerSliderView(dangerLevel: level)
+            }
+
+            ForEach(parsedSections.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                if key.lowercased() != "recommended products" {
+                    Label {
+                        Text(value)
+                    } icon: {
+                        Image(systemName: iconName(for: key))
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+
+            if !products.isEmpty {
+                Divider()
+                Text("🛒 Suggested Products")
+                    .font(.headline)
+                ForEach(products) { product in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(product.name)
+                            .bold()
+                        Text(product.description)
+                        if let url = product.url {
+                            Link("View", destination: url)
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .padding(8)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                }
+            }
+
+            Text("🧠 This result is AI-generated and not a substitute for professional medical advice.")
+                .font(.footnote)
+                .foregroundColor(.gray)
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+    }
+
+    private func analyzeContent() {
+        guard let user = authViewModel.currentUser else {
+            resultText = "Error: User profile not loaded."
+            return
+        }
+
+        guard let image = selectedImage,
+              let imageData = image.jpegData(compressionQuality: 0.8) else {
+            resultText = "Please provide a valid image."
+            return
+        }
+
+        isAnalyzing = true
+        resultText = nil
+        dangerLevel = nil
+        parsedSections = [:]
+        products = []
+
+        let base64Image = imageData.base64EncodedString()
+
+        ChatGPTService.shared.sendImagePromptWithProfile(
+            base64Image: base64Image,
+            symptomText: symptomText,
+            user: user
+        ) { result in
+            DispatchQueue.main.async {
+                self.isAnalyzing = false
+                switch result {
+                case .success(let response):
+                    self.resultText = response
+                    let parsed = parseSections(from: response)
+                    self.parsedSections = parsed
+                    if let levelStr = parsed["Danger Level (1-10)"], let level = Int(levelStr) {
+                        self.dangerLevel = level
+                    }
+                    if let productBlock = parsed["Recommended Products"] {
+                        self.products = parseProducts(from: productBlock)
+                    }
+                    if let image = self.selectedImage {
+                        self.autoSaveScanEntry(userId: user.id, image: image, parsed: parsed, notes: self.symptomText, severity: self.dangerLevel)
+                    }
+                case .failure(let error):
+                    self.resultText = "Error: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
+
+    private func autoSaveScanEntry(userId: String, image: UIImage, parsed: [String: String], notes: String, severity: Int?) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+        let id = UUID()
+        let storageRef = Storage.storage().reference().child("users/\(userId)/biteLogs/\(id.uuidString).jpg")
+
+        storageRef.putData(imageData) { _, error in
+            if let error = error {
+                print("❌ Failed to upload scan image: \(error)")
+                return
+            }
+
+            storageRef.downloadURL { url, error in
+                guard let url = url else {
+                    print("❌ Failed to get scan image URL")
+                    return
+                }
+
+                // Create location description from LocationManager
+                let locationDesc = [locationManager.locality, locationManager.administrativeArea]
+                    .compactMap { $0 }
+                    .joined(separator: ", ")
+
+                let entry: [String: Any] = [
+                    "id": id.uuidString,
+                    "date": Timestamp(date: Date()),
+                    "imageURL": url.absoluteString,
+                    "notes": notes,
+                    "diagnosisSummary": parsed["Insect or Cause"] ?? "Unknown",
+                    "severity": severity ?? 0,
+                    "autoSaved": true,
+                    "locationDescription": locationDesc
+                ]
+
+                Firestore.firestore().collection("users").document(userId).collection("biteLogs").document(id.uuidString).setData(entry) { error in
+                    if let error = error {
+                        print("❌ Failed to save scan entry: \(error)")
+                    } else {
+                        pruneOldAutoSavedEntries(for: userId)
+                    }
+                }
+            }
+        }
+    }
+
+    private func pruneOldAutoSavedEntries(for userId: String) {
+        let logsRef = Firestore.firestore().collection("users").document(userId).collection("biteLogs")
+        logsRef.whereField("autoSaved", isEqualTo: true).order(by: "date", descending: true).getDocuments { snapshot, error in
+            guard let docs = snapshot?.documents, docs.count > 5 else { return }
+            let excess = docs.dropFirst(5)
+            for doc in excess {
+                doc.reference.delete(completion: nil)
+            }
         }
     }
 
     private func parseSections(from text: String) -> [String: String] {
         var result: [String: String] = [:]
         let lines = text.components(separatedBy: "\n")
+        var currentKey: String?
+        var currentValue = ""
+
         for line in lines {
-            if let range = line.range(of: ":") {
-                let key = String(line[..<range.lowerBound]).trimmingCharacters(in: .whitespaces)
-                let value = String(line[range.upperBound...]).trimmingCharacters(in: .whitespaces)
-                result[key] = value
+            if let colonRange = line.range(of: ":") {
+                if let key = currentKey {
+                    result[key] = currentValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+                currentKey = String(line[..<colonRange.lowerBound]).trimmingCharacters(in: .whitespaces)
+                currentValue = String(line[colonRange.upperBound...]).trimmingCharacters(in: .whitespaces)
+            } else if !line.trimmingCharacters(in: .whitespaces).isEmpty {
+                currentValue += "\n" + line
             }
         }
+
+        if let key = currentKey {
+            result[key] = currentValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
         return result
+    }
+
+    private func parseProducts(from block: String) -> [Product] {
+        let lines = block.components(separatedBy: .newlines).filter { $0.contains("-") }
+        return lines.compactMap { line in
+            let components = line.split(separator: "-", maxSplits: 1).map { $0.trimmingCharacters(in: .whitespaces) }
+            guard components.count >= 2 else { return nil }
+
+            let name = components[0].replacingOccurrences(of: "• ", with: "").replacingOccurrences(of: "- ", with: "")
+            let description = components[1]
+            let url = description.extractURL()
+            return Product(name: name, description: description, url: url)
+        }
     }
 
     private func iconName(for section: String) -> String {
@@ -210,15 +347,27 @@ struct ScanView: View {
         case "when to seek medical attention": return "cross.case"
         case "danger level (1-10)": return "thermometer"
         case "disclaimer": return "info.circle"
+        case "recommended products": return "cross.case.fill"
         default: return "doc.text"
         }
+    }
+}
+
+extension String {
+    func extractURL() -> URL? {
+        guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue),
+              let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: utf16.count)),
+              let range = Range(match.range, in: self) else {
+            return nil
+        }
+        return URL(string: String(self[range]))
     }
 }
 
 struct DangerSliderView: View {
     let dangerLevel: Int
     @State private var animatedLevel: Double = 0
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -233,33 +382,22 @@ struct DangerSliderView: View {
                     .background(dangerColor.opacity(0.2))
                     .cornerRadius(8)
             }
-            
-            // Risk gauge/slider
+
             ZStack(alignment: .leading) {
-                // Background track
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.green, .yellow, .orange, .red]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .opacity(0.3)
-                    )
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [.green, .yellow, .orange, .red]),
+                        startPoint: .leading, endPoint: .trailing
+                    ).opacity(0.3))
                     .frame(height: 16)
-                
-                // Filled portion
+
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.green, .yellow, .orange, .red]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [.green, .yellow, .orange, .red]),
+                        startPoint: .leading, endPoint: .trailing
+                    ))
                     .frame(width: CGFloat(animatedLevel / 10) * UIScreen.main.bounds.width * 0.8, height: 16)
-                
-                // Indicator dot at the end of the fill
+
                 Circle()
                     .fill(dangerColor)
                     .frame(width: 24, height: 24)
@@ -267,8 +405,7 @@ struct DangerSliderView: View {
                     .offset(x: max(0, CGFloat(animatedLevel / 10) * UIScreen.main.bounds.width * 0.8 - 12))
             }
             .animation(.easeOut(duration: 1.0), value: animatedLevel)
-            
-            // Legend
+
             HStack {
                 Text("Low")
                     .font(.caption)
@@ -282,8 +419,7 @@ struct DangerSliderView: View {
                     .font(.caption)
                     .foregroundColor(.red)
             }
-            
-            // Risk description
+
             HStack {
                 Image(systemName: riskIcon)
                     .foregroundColor(dangerColor)
@@ -300,7 +436,7 @@ struct DangerSliderView: View {
             }
         }
     }
-    
+
     private var dangerColor: Color {
         switch dangerLevel {
         case 1...3: return .green
@@ -310,7 +446,7 @@ struct DangerSliderView: View {
         default: return .gray
         }
     }
-    
+
     private var riskDescription: String {
         switch dangerLevel {
         case 1...3: return "Low Risk - Typically non-venomous"
@@ -320,7 +456,7 @@ struct DangerSliderView: View {
         default: return "Unknown Risk"
         }
     }
-    
+
     private var riskIcon: String {
         switch dangerLevel {
         case 1...3: return "checkmark.circle"
@@ -331,3 +467,5 @@ struct DangerSliderView: View {
         }
     }
 }
+
+// NOTE: Make sure your LocationManager has 'locality' and 'administrativeArea' properties

@@ -3,6 +3,9 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var locationManager: LocationManager
+    @EnvironmentObject var networkMonitor: NetworkMonitor
 
     var body: some View {
         TabView(selection: $selectedTab) {
