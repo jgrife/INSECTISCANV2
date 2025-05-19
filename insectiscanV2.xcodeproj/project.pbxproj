@@ -57,7 +57,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */ = {
+		D1AED9362DD9C5670020DFB2 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -70,7 +70,7 @@
 		D17248022DC2D95A0096AE1B /* insectiscanV2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D1B235D12DC5F2BE00A33A50 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */,
+				D1AED9362DD9C5670020DFB2 /* Exceptions for "insectiscanV2" folder in "insectiscanV2" target */,
 			);
 			path = insectiscanV2;
 			sourceTree = "<group>";

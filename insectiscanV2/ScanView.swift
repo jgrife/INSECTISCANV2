@@ -1,4 +1,4 @@
-// ScanView.swift (Complete with Location Tagging)
+// ScanView.swift (Complete with Location Tagging and Reset Button)
 
 import SwiftUI
 import PhotosUI
@@ -51,6 +51,7 @@ struct ScanView: View {
 
                 if let result = resultText {
                     resultView
+                    resetButton
                 }
 
                 Spacer(minLength: 60)
@@ -144,6 +145,23 @@ struct ScanView: View {
             .cornerRadius(12)
         }
         .disabled(isAnalyzing || (selectedImage == nil && symptomText.isEmpty))
+    }
+
+    private var resetButton: some View {
+        Button("Reset Scan") {
+            selectedItem = nil
+            selectedImage = nil
+            symptomText = ""
+            resultText = nil
+            parsedSections = [:]
+            products = []
+            dangerLevel = nil
+        }
+        .font(.body)
+        .foregroundColor(.red)
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(10)
     }
 
     private var resultView: some View {
