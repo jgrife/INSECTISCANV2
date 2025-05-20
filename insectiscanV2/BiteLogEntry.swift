@@ -1,4 +1,3 @@
-// BiteLogEntry.swift (clean version without ProgressPhoto declaration)
 import Foundation
 
 struct BiteLogEntry: Identifiable, Codable, Hashable {
@@ -10,5 +9,5 @@ struct BiteLogEntry: Identifiable, Codable, Hashable {
     var severity: Int?
     var autoSaved: Bool? = false
     var locationDescription: String? = nil
-    var progressImages: [ProgressPhoto]? = []
+    var progressImages: [ProgressPhoto]? = []  // now resolved and clean
 }

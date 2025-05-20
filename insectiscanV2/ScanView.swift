@@ -233,6 +233,8 @@ struct ScanView: View {
         products = []
 
         let base64Image = imageData.base64EncodedString()
+        
+        print("📤 Submitting scan to ChatGPT...")
 
         ChatGPTService.shared.sendImagePromptWithProfile(
             base64Image: base64Image,
@@ -243,6 +245,7 @@ struct ScanView: View {
                 self.isAnalyzing = false
                 switch result {
                 case .success(let response):
+                    print("✅ Received response: \(response)")
                     self.resultText = response
                     let parsed = parseSections(from: response)
                     self.parsedSections = parsed
@@ -256,6 +259,7 @@ struct ScanView: View {
                         self.autoSaveScanEntry(userId: user.id, image: image, parsed: parsed, notes: self.symptomText, severity: self.dangerLevel)
                     }
                 case .failure(let error):
+                    print("❌ ChatGPT error: \(error.localizedDescription)")
                     self.resultText = "Error: \(error.localizedDescription)"
                 }
             }

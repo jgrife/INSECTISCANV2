@@ -19,6 +19,7 @@ final class AuthViewModel: ObservableObject {
     private func checkAuthState() {
         if let user = auth.currentUser {
             print("✅ Existing user session found: \(user.email ?? "unknown")")
+            print("🔥 Firebase UID: \(user.uid)")
             fetchUser(uid: user.uid)
         } else {
             print("ℹ️ No authenticated user found.")

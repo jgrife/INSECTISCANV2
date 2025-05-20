@@ -1,4 +1,3 @@
-// BiteLogDetailView.swift (Clean + Fixed)
 import SwiftUI
 import Firebase
 import FirebaseStorage
@@ -15,6 +14,7 @@ struct BiteLogDetailView: View {
     @State private var selectedDay = 1
     @State private var selectedImage: UIImage? = nil
     @State private var healingStatus: String? = nil
+    @State private var newPhotoNote: String = ""
 
     var body: some View {
         ScrollView {
@@ -55,20 +55,51 @@ struct BiteLogDetailView: View {
 
                 ForEach(progressImages.sorted(by: { $0.day < $1.day })) { photo in
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Day \(photo.day)")
-                            .font(.subheadline.bold())
+                        HStack {
+                            Text("Day \(photo.day)")
+                                .font(.subheadline.bold())
+                            Spacer()
+                            Button("Edit") {
+                                selectedDay = photo.day
+                                newPhotoNote = photo.notes ?? ""
+                                showPhotoPicker = true
+                            }
+                            .font(.caption)
+                            .foregroundColor(.blue)
+
+                            Button(role: .destructive) {
+                                deleteProgressPhoto(photo)
+                            } label: {
+                                Text("Delete")
+                            }
+                            .font(.caption)
+                        }
+
                         AsyncImage(url: URL(string: photo.imageURL)) { image in
                             image.resizable().scaledToFit()
                         } placeholder: {
                             Color.gray.opacity(0.1)
                         }
                         .cornerRadius(8)
+
+                        if let status = photo.healingStatus {
+                            Text("AI Healing Assessment: \(status)")
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                        }
+
+                        if let note = photo.notes {
+                            Text("Notes: \(note)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
+                    .padding(.bottom, 8)
                 }
 
                 if let status = healingStatus {
                     Divider()
-                    Text("🧠 Healing Status")
+                    Text("Healing Status 🧠")
                         .font(.headline)
                     Text(status)
                         .font(.body)
@@ -83,6 +114,9 @@ struct BiteLogDetailView: View {
                     Text("Day 7").tag(7)
                 }
                 .pickerStyle(SegmentedPickerStyle())
+
+                TextField("Optional notes for this photo...", text: $newPhotoNote)
+                    .textFieldStyle(.roundedBorder)
 
                 Button("Upload Progress Photo") {
                     showPhotoPicker = true
@@ -132,7 +166,14 @@ struct BiteLogDetailView: View {
                     return
                 }
 
-                let newPhoto = ProgressPhoto(id: photoId, day: selectedDay, imageURL: downloadURL.absoluteString, date: Date())
+                let newPhoto = ProgressPhoto(
+                    id: photoId,
+                    day: selectedDay,
+                    imageURL: downloadURL.absoluteString,
+                    date: Date(),
+                    healingStatus: nil,
+                    notes: newPhotoNote.isEmpty ? nil : newPhotoNote
+                )
 
                 var updatedPhotos = entry.progressImages ?? []
                 updatedPhotos.removeAll { $0.day == selectedDay }
@@ -143,19 +184,45 @@ struct BiteLogDetailView: View {
                         "id": $0.id.uuidString,
                         "day": $0.day,
                         "imageURL": $0.imageURL,
-                        "date": Timestamp(date: $0.date)
+                        "date": Timestamp(date: $0.date),
+                        "healingStatus": $0.healingStatus ?? "",
+                        "notes": $0.notes ?? ""
                     ] }
                 ]
 
                 Firestore.firestore().collection("users").document(userId).collection("biteLogs").document(entry.id.uuidString).updateData(updateData)
 
                 self.progressImages = updatedPhotos
+                self.newPhotoNote = ""
+                self.selectedImage = nil
 
                 if [3, 7].contains(selectedDay), let day1 = updatedPhotos.first(where: { $0.day == 1 }) {
                     compareHealingImages(day1URL: day1.imageURL, latestURL: downloadURL.absoluteString)
                 }
             }
         }
+    }
+
+    private func deleteProgressPhoto(_ photo: ProgressPhoto) {
+        guard let userId = authViewModel.currentUser?.id else { return }
+
+        var updatedPhotos = entry.progressImages ?? []
+        updatedPhotos.removeAll { $0.id == photo.id }
+
+        let updateData: [String: Any] = [
+            "progressImages": updatedPhotos.map { [
+                "id": $0.id.uuidString,
+                "day": $0.day,
+                "imageURL": $0.imageURL,
+                "date": Timestamp(date: $0.date),
+                "healingStatus": $0.healingStatus ?? "",
+                "notes": $0.notes ?? ""
+            ] }
+        ]
+
+        Firestore.firestore().collection("users").document(userId).collection("biteLogs").document(entry.id.uuidString).updateData(updateData)
+
+        self.progressImages = updatedPhotos
     }
 
     private func compareHealingImages(day1URL: String, latestURL: String) {

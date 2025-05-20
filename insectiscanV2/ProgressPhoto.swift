@@ -1,16 +1,11 @@
-//
-//  ProgressPhoto.swift
-//  insectiscanV2
-//
-//  Created by Jason Grife on 5/17/25.
-//
-
-
+// ProgressPhoto.swift
 import Foundation
 
 struct ProgressPhoto: Identifiable, Codable, Hashable {
-    var id = UUID()
-    var day: Int
-    var imageURL: String
-    var date: Date
+    var id: UUID = UUID()                 // Unique identifier for Firestore + SwiftUI
+    var day: Int                          // Healing Day (1, 3, 7, etc.)
+    var imageURL: String                  // Firebase Storage image link
+    var date: Date                        // When photo was taken or uploaded
+    var healingStatus: String? = nil      // Optional AI-generated analysis (e.g. "Improving")
+    var notes: String? = nil              // Optional user-entered notes
 }

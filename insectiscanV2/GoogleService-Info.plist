@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>io.github.insectiscan.insectiscanV2</string>
+	<string>com.jgrife.insectiscan</string>
 	<key>PROJECT_ID</key>
 	<string>insectiscan-6e516</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:49256586748:ios:cddc67166bd50b99632679</string>
+	<string>1:49256586748:ios:887b815202d5945b632679</string>
 </dict>
 </plist>
